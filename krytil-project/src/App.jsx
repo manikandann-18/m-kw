@@ -239,12 +239,12 @@ const ServiceModal = ({ service, onClose }) => {
   if (!service) return null;
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 md:p-12">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 md:p-12 w-full">
       <div 
         className="absolute inset-0 bg-zinc-900/60 backdrop-blur-md transition-opacity duration-500 animate-in fade-in" 
         onClick={onClose}
       />
-      <div className="bg-white w-full max-w-4xl rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 flex flex-col md:flex-row animate-in slide-in-from-bottom-8 duration-500">
+      <div className="bg-white w-full max-w-4xl mx-auto rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl relative z-10 flex flex-col md:flex-row animate-in slide-in-from-bottom-8 duration-500 max-h-[95vh]">
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-400 hover:text-zinc-900 transition-colors z-20 shadow-sm"
@@ -252,38 +252,36 @@ const ServiceModal = ({ service, onClose }) => {
           <X size={20} />
         </button>
 
-        <div className="w-full md:w-2/5 h-48 md:h-auto relative overflow-hidden">
+        <div className="w-full md:w-2/5 h-48 md:h-auto relative overflow-hidden shrink-0">
           <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/10" />
         </div>
 
-        <div className="w-full md:w-3/5 p-6 md:p-16 flex flex-col">
-          <div className={`w-12 h-12 md:w-14 md:h-14 ${service.color} bg-zinc-50 rounded-2xl flex items-center justify-center mb-6 md:mb-8 shadow-sm`}>
+        <div className="w-full md:w-3/5 p-6 md:p-10 lg:p-14 flex flex-col overflow-y-auto no-scrollbar">
+          <div className={`w-12 h-12 md:w-14 md:h-14 ${service.color} bg-zinc-50 rounded-2xl flex items-center justify-center mb-6 shadow-sm shrink-0`}>
             {service.icon}
           </div>
-          <h3 className="text-3xl md:text-4xl font-black text-zinc-900 uppercase tracking-tighter mb-4 md:mb-6">{service.title}</h3>
-          <p className="text-zinc-500 text-base md:text-xl leading-relaxed font-light mb-6 md:mb-10">
+          <h3 className="text-3xl md:text-4xl font-black text-zinc-900 uppercase tracking-tighter mb-4 shrink-0">{service.title}</h3>
+          <p className="text-zinc-500 text-base md:text-lg leading-relaxed font-light mb-6 shrink-0">
             {service.detailedContent || service.content}
           </p>
           
-          <div className="grid grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-2 gap-4 md:gap-8 mb-6 shrink-0">
             <div>
-              <h4 className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-2">Capabilities</h4>
+              <h4 className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-2">{service.col1Title}</h4>
               <ul className="text-xs md:text-sm font-bold text-zinc-800 space-y-1">
-                <li>• Scalable Architecture</li>
-                <li>• Real-time Processing</li>
+                {service.col1?.map((item, idx) => <li key={idx}>{item}</li>)}
               </ul>
             </div>
             <div>
-              <h4 className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-2">Performance</h4>
+              <h4 className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-2">{service.col2Title}</h4>
               <ul className="text-xs md:text-sm font-bold text-zinc-800 space-y-1">
-                <li>• 99.9% Uptime</li>
-                <li>• Low Latency Sync</li>
+                {service.col2?.map((item, idx) => <li key={idx}>{item}</li>)}
               </ul>
             </div>
           </div>
 
-          <button className="bg-zinc-900 text-white font-black px-8 md:px-10 py-4 md:py-5 rounded-full text-[10px] md:text-[11px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-xl active:scale-95 self-start">
+          <button className="bg-zinc-900 text-white font-black px-8 md:px-10 py-4 md:py-5 rounded-full text-[10px] md:text-[11px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-xl active:scale-95 self-start mt-auto">
             Request Implementation
           </button>
         </div>
@@ -326,7 +324,7 @@ const Navbar = ({ onScroll }) => {
         ? 'bg-white/95 backdrop-blur-xl border-zinc-200/60 py-2 shadow-md' 
         : 'bg-white/70 backdrop-blur-lg border-zinc-200/40 py-4' 
     }`}>
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex justify-between items-center relative">
+      <div className="w-full max-w-[1920px] 2xl:px-20 mx-auto px-6 md:px-10 lg:px-12 flex justify-between items-center relative">
         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => onScroll('home')}>
           <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-black transition-all duration-500 transform group-hover:-rotate-12">
             <span className="text-white font-bold text-xs underline decoration-blue-500 decoration-2">K</span>
@@ -391,7 +389,7 @@ const TiltContactCard = ({ href, icon: Icon, colorClass, label, value, delay, vi
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`bg-white p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-zinc-200 shadow-sm hover:shadow-2xl transition-all duration-700 group block relative overflow-hidden ${visible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+      className={`bg-white w-full p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-zinc-200 shadow-sm hover:shadow-2xl transition-all duration-700 group block relative overflow-hidden ${visible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
       style={{ 
         transitionDelay: `${delay}s`,
         transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
@@ -463,90 +461,123 @@ export default function App() {
 
   const services = [
     { 
-      title: "AI Solutions", 
+      title: "IT Solutions", 
       icon: <Cpu size={26} />, 
       color: "text-blue-500", 
       border: "border-blue-100", 
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800", 
-      content: "Deployment of custom transformer-based architectures optimized for high-throughput operational intelligence.",
-      detailedContent: "Our AI solutions focus on domain-specific LLMs, automated decision-making engines, and predictive forecasting. We build systems that don't just process data, but provide actionable foresight."
-    },
-    { 
-      title: "Full Stack", 
-      icon: <Code2 size={26} />, 
-      color: "text-red-500", 
-      border: "border-red-100", 
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800", 
-      content: "End-to-end digital construction focusing on type-safe, hyper-reactive ecosystems.",
-      detailedContent: "We architect resilient platforms using modern stacks (React, Node, Rust). Every line of code is written with scalability and security as first-class citizens."
-    },
-    { 
-      title: "Cloud Hub", 
-      icon: <Globe size={26} />, 
-      color: "text-yellow-600", 
-      border: "border-yellow-100", 
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800", 
-      content: "Global orchestration of serverless hosting environments with multi-region failover protocols.",
-      detailedContent: "Serverless architectures designed for zero-latency across the globe. We implement multi-cloud strategies to ensure your services remain online under any circumstances."
+      content: "Empowering enterprises with innovative AI-driven solutions, intelligent automation, and scalable IT strategies.",
+      detailedContent: "Empowering enterprises with innovative AI-driven solutions, intelligent automation, and scalable IT strategies that accelerate digital transformation and business growth.",
+      col1Title: "AI & Analytics",
+      col1: ["• Custom AI Development", "• Predictive Analytics"],
+      col2Title: "Processing",
+      col2: ["• Natural Language Processing", "• Computer Vision"]
     },
     { 
-      title: "Security", 
-      icon: <Shield size={26} />, 
-      color: "text-green-600", 
-      border: "border-green-100", 
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800", 
-      content: "Defensive protocols based on Zero-Trust architectural standards, implementing military-grade encryption.",
-      detailedContent: "Our cybersecurity division implements proactive threat detection, SOC-2 compliance preparation, and quantum-resistant encryption layers."
-    },
-    { 
-      title: "Data Core", 
-      icon: <BarChart3 size={26} />, 
+      title: "Resume AI", 
+      icon: <FileText size={26} />, 
       color: "text-purple-500", 
       border: "border-purple-100", 
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", 
-      content: "Synthesis pipelines designed to transform massive digital noise into definitive predictive assets.",
-      detailedContent: "Extracting value from chaos. We build data lakes and real-time streaming pipelines (Kafka, Flink) to power your organization's internal analytics."
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800", 
+      content: "An intelligent platform that helps professionals craft stunning, personalized resumes in minutes powered by AI.",
+      detailedContent: "An intelligent platform that helps professionals craft stunning, personalized resumes in minutes powered by AI that highlights your unique skills and achievements.",
+      col1Title: "Features",
+      col1: ["• Smart Resume Templates", "• Real-Time Editing"],
+      col2Title: "Enhancements",
+      col2: ["• Content Suggestions", "• Cloud Storage Sync"]
+    },
+    { 
+      title: "School Tech", 
+      icon: <GraduationCap size={26} />, 
+      color: "text-yellow-600", 
+      border: "border-yellow-100", 
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800", 
+      content: "Redefining learning with interactive AI-powered courses, smart progress tracking, and real-world projects.",
+      detailedContent: "Redefining learning with interactive AI-powered courses, smart progress tracking, and real-world projects that prepare students for the future of technology.",
+      col1Title: "Learning",
+      col1: ["• Adaptive Learning Paths", "• Project-Based Curriculum"],
+      col2Title: "Tracking",
+      col2: ["• Interactive Dashboards", "• Collaborative Tools"]
+    },
+    { 
+      title: "LinkedIn Growth", 
+      icon: <TrendingUp size={26} />, 
+      color: "text-green-600", 
+      border: "border-green-100", 
+      image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&q=80&w=800", 
+      content: "Your AI-powered career growth companion - track engagement, analyze network trends, and optimize performance.",
+      detailedContent: "Your AI-powered career growth companion - track engagement, analyze network trends, and optimize your LinkedIn performance with real-time analytics.",
+      col1Title: "Analytics",
+      col1: ["• Profile Insights", "• Smart Analytics Tracking"],
+      col2Title: "Growth",
+      col2: ["• Career Trend Analysis", "• Performance Dashboard"]
+    },
+    { 
+      title: "Campus Training", 
+      icon: <Users size={26} />, 
+      color: "text-red-500", 
+      border: "border-red-100", 
+      image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800", 
+      content: "Bridging the gap between academic learning and industry readiness through AI-based career training and guidance.",
+      detailedContent: "Bridging the gap between academic learning and industry readiness through AI-based career training, soft skills enhancement, and hands-on corporate exposure.",
+      col1Title: "Development",
+      col1: ["• Career Readiness Program", "• Soft Skills Training"],
+      col2Title: "Placement",
+      col2: ["• Mock Interviews", "• Internship Guidance"]
+    },
+    { 
+      title: "AI Consulting", 
+      icon: <Lightbulb size={26} />, 
+      color: "text-indigo-500", 
+      border: "border-indigo-100", 
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800", 
+      content: "Expert guidance on AI strategy, implementation, and optimization to harness the power of artificial intelligence.",
+      detailedContent: "Expert guidance on AI strategy, implementation, and optimization to help businesses harness the power of artificial intelligence for competitive advantage.",
+      col1Title: "Strategy",
+      col1: ["• AI Strategy Planning", "• Technology Assessment"],
+      col2Title: "Execution",
+      col2: ["• Implementation Support", "• Performance Optimization"]
     }
   ];
 
   return (
-    <div className="bg-[#f3f4f6] text-zinc-600 font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen antialiased flex flex-col">
+    <div className="bg-[#f3f4f6] text-zinc-600 font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen w-full antialiased flex flex-col">
       {/* GLOBAL DOT GRID BACKGROUND */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(#cfd5dd 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      <div className="fixed inset-0 w-full pointer-events-none z-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(#cfd5dd 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
       <Navbar onScroll={scrollToSection} />
 
-      <main className="flex-grow pt-[80px]">
+      <main className="flex-grow pt-[80px] w-full">
         
         {/* HERO SECTION */}
         <section id="home" className="scroll-mt-32 relative w-full min-h-[calc(100vh-80px)] flex items-center justify-center border-b border-zinc-200/50 overflow-hidden">
           
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 w-full z-0">
              <NeuralMesh opacity={0.6} />
              <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-[#f3f4f6]/40 pointer-events-none"></div>
           </div>
 
           <SideDecorations />
 
-          <div className="relative z-10 w-full max-w-[1440px] px-6 md:px-10 lg:px-12 flex flex-col items-center lg:items-start animate-in fade-in duration-1000">
-            <div className="flex space-x-1.5 mb-8 lg:mb-10">
+          <div className="relative z-10 w-full max-w-[1920px] 2xl:px-20 mx-auto px-6 md:px-10 lg:px-12 flex flex-col items-center animate-in fade-in duration-1000">
+            <div className="flex space-x-1.5 mb-8 lg:mb-10 justify-center">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></span>
               <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
               <span className="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
               <span className="w-2.5 h-2.5 rounded-full bg-green-500"></span>
             </div>
 
-            <div className="max-w-4xl text-center lg:text-left">
+            <div className="w-full max-w-4xl text-center mx-auto">
               <h1 className="text-4xl md:text-7xl lg:text-[6rem] xl:text-[7.5rem] font-black text-zinc-900 mb-6 leading-[0.95] tracking-tighter uppercase">
                 Build the <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-red-600 to-yellow-600">Intelligent</span> <br />
                 Digital Hub.
               </h1>
-              <p className="text-zinc-600 text-base md:text-xl lg:text-2xl mb-10 md:mb-14 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+              <p className="text-zinc-600 text-base md:text-xl lg:text-2xl mb-10 md:mb-14 max-w-xl mx-auto leading-relaxed font-light">
                 High-fidelity design meets industrial engineering. We architect the future with titanium-grade precision and neural speed.
               </p>
               
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-5 relative z-20">
+              <div className="flex flex-wrap justify-center gap-3 md:gap-5 relative z-20">
                 <button 
                   onClick={() => scrollToSection('services')} 
                   className="bg-zinc-900 text-white font-black px-10 py-5 md:px-12 md:py-6 rounded-full flex items-center space-x-4 hover:bg-black transition-all uppercase text-[10px] md:text-[11px] tracking-[0.2em] shadow-2xl active:scale-95 cursor-pointer"
@@ -572,25 +603,25 @@ export default function App() {
 
         {/* SERVICES SECTION */}
         <section id="services" className="scroll-mt-20 relative w-full py-8 md:py-12 px-6 md:px-10 lg:px-12 border-t border-zinc-200/70">
-          <div className="max-w-[1440px] mx-auto">
-            <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-zinc-900 uppercase tracking-tighter mb-6 md:mb-10">
+          <div className="w-full max-w-[1920px] 2xl:px-20 mx-auto flex flex-col items-center">
+            <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-zinc-900 uppercase tracking-tighter mb-6 md:mb-10 text-center">
               Our <span className="text-blue-600">Services</span>
             </h2>
-            <div className="relative group">
+            <div className="relative w-full group">
               <button onClick={() => scrollCarousel('left')} className="absolute -left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white border border-zinc-200 text-zinc-400 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-zinc-900 hover:text-white shadow-lg"><ChevronLeft size={20} /></button>
               <button onClick={() => scrollCarousel('right')} className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white border border-zinc-200 text-zinc-400 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-zinc-900 hover:text-white shadow-lg"><ChevronRight size={20} /></button>
               
-              <div ref={carouselRef} className="flex overflow-x-auto gap-6 md:gap-10 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
+              <div ref={carouselRef} className="flex overflow-x-auto gap-6 md:gap-10 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth w-full">
                 {services.map((service, idx) => (
                   <div key={idx} className={`flex-shrink-0 w-[280px] md:w-[480px] snap-center bg-white border ${service.border} rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden hover:shadow-2xl transition-all duration-700 group/card flex flex-col shadow-sm cursor-pointer`}>
-                    <div className="h-64 md:h-80 relative overflow-hidden" onClick={() => setSelectedService(service)}>
+                    <div className="h-64 md:h-80 relative overflow-hidden w-full" onClick={() => setSelectedService(service)}>
                       <img src={service.image} alt={service.title} className="w-full h-full object-cover grayscale group-hover/card:grayscale-0 group-hover/card:scale-110 transition-all duration-1000" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/5 to-transparent"></div>
+                      <div className="absolute inset-0 w-full bg-gradient-to-t from-white via-white/5 to-transparent"></div>
                       <div className={`absolute top-6 left-6 md:top-8 md:left-8 ${service.color} p-4 md:p-6 rounded-2xl bg-white/95 shadow-xl transform group-hover/card:-rotate-6 transition-transform duration-500`}>{service.icon}</div>
                     </div>
-                    <div className="p-8 md:p-14 flex flex-col flex-grow">
+                    <div className="w-full p-8 md:p-14 flex flex-col flex-grow">
                       <h3 className="text-3xl md:text-5xl font-black text-zinc-900 mb-4 md:mb-6 uppercase tracking-tighter">{service.title}</h3>
-                      <p className="text-zinc-500 text-base md:text-lg mb-8 md:mb-12 flex-grow font-light leading-relaxed">{service.content.substring(0, 110)}...</p>
+                      <p className="text-zinc-500 text-base md:text-lg mb-8 md:mb-12 flex-grow font-light leading-relaxed">{service.content.length > 110 ? service.content.substring(0, 110) + '...' : service.content}</p>
                       <button onClick={() => setSelectedService(service)} className={`flex items-center font-black text-[10px] md:text-[11px] uppercase tracking-[0.3em] ${service.color} group-hover/card:translate-x-4 transition-transform duration-500`}>
                         <span>Launch Briefing</span>
                         <ArrowRight size={14} className="ml-2" />
@@ -606,31 +637,31 @@ export default function App() {
         {/* ABOUT SECTION */}
         <section id="about" ref={aboutRef} className="scroll-mt-20 relative w-full py-8 md:py-12 px-6 md:px-10 lg:px-12 border-t border-zinc-200/70 bg-white/30 overflow-hidden">
           <BlueprintGrid />
-          <div className="max-w-[1440px] mx-auto relative z-10">
-            <div className={`transition-all duration-1000 transform ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-              <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-zinc-900 uppercase tracking-tighter mb-6 md:mb-10">
+          <div className="w-full max-w-[1920px] 2xl:px-20 mx-auto relative z-10 flex flex-col items-center text-center">
+            <div className={`w-full max-w-5xl flex flex-col items-center transition-all duration-1000 transform ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
+              <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-zinc-900 uppercase tracking-tighter mb-6 md:mb-10 text-center">
                 About <span className="text-red-500">Us</span>
               </h2>
-              <div className="max-w-5xl">
-                <h3 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 uppercase tracking-tighter mb-6 lg:mb-8 leading-[1.1]">
+              <div className="w-full text-center">
+                <h3 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 uppercase tracking-tighter mb-6 lg:mb-8 leading-[1.1] mx-auto">
                   Technology with Purpose.
                 </h3>
-                <p className="text-zinc-500 text-lg md:text-3xl leading-relaxed font-normal mb-6 md:mb-8 max-w-4xl">
+                <p className="text-zinc-500 text-lg md:text-3xl leading-relaxed font-normal mb-6 md:mb-8 max-w-4xl mx-auto">
                   KRYTIL PRIVATE LIMITED is a technology-driven company focused on building intelligent software solutions that solve real-world problems.
                 </p>
-                <p className="text-zinc-500 text-lg md:text-3xl leading-relaxed font-normal mb-8 lg:mb-12 max-w-4xl opacity-80">
+                <p className="text-zinc-500 text-lg md:text-3xl leading-relaxed font-normal mb-8 lg:mb-12 max-w-4xl opacity-80 mx-auto">
                   We empower businesses, students, and professionals with AI-driven software solutions, scalable platforms, and future-ready digital systems. We help our partners leverage automation and scalable systems to accelerate growth and innovation.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 border-t border-zinc-200 pt-8 md:pt-16 mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 border-t border-zinc-200 pt-8 md:pt-16 mt-8 w-full">
                   {[
                     { value: "5+", label: "Industry Experience", icon: <Award className="text-indigo-600 mb-4" size={44} />, delay: '0.2s' },
                     { value: "50+", label: "Expert Team", icon: <Users className="text-red-600 mb-4" size={44} />, delay: '0.4s' },
                     { value: "24/7", label: "Support", icon: <Clock className="text-green-600 mb-4" size={44} />, delay: '0.6s' }
                   ].map((stat, i) => (
-                    <div key={i} className={`group transition-all duration-1000 transform ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`} style={{ transitionDelay: stat.delay }}>
+                    <div key={i} className={`group transition-all duration-1000 transform flex flex-col items-center ${aboutVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`} style={{ transitionDelay: stat.delay }}>
                       <div className="mb-4 group-hover:scale-110 transition-transform duration-500">{stat.icon}</div>
-                      <div className="text-6xl md:text-8xl font-black text-zinc-900 mb-2 tracking-tighter uppercase whitespace-nowrap">{stat.value}</div>
-                      <h4 className="text-zinc-400 font-black uppercase tracking-[0.2em] text-xs md:text-lg leading-tight">
+                      <div className="text-6xl md:text-8xl font-black text-zinc-900 mb-2 tracking-tighter uppercase whitespace-nowrap text-center">{stat.value}</div>
+                      <h4 className="text-zinc-400 font-black uppercase tracking-[0.2em] text-xs md:text-lg leading-tight text-center">
                         {stat.label.split(' ').map((word, idx) => <span key={idx} className="block">{word}</span>)}
                       </h4>
                     </div>
@@ -643,80 +674,80 @@ export default function App() {
 
         {/* CAREERS & PROJECTS SECTION */}
         <section id="careers" className="scroll-mt-20 relative w-full py-8 md:py-12 px-6 md:px-10 lg:px-12 border-t border-zinc-200/70">
-          <div className="max-w-[1440px] mx-auto">
-            <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-zinc-900 uppercase tracking-tighter mb-6 md:mb-10 text-center lg:text-left">
+          <div className="w-full max-w-[1920px] 2xl:px-20 mx-auto flex flex-col items-center">
+            <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-zinc-900 uppercase tracking-tighter mb-6 md:mb-10 text-center">
               {activeForm === 'project' ? "Build Your " : "Start Your "}
               <span className={`${activeForm === 'project' ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600' : 'text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600'} font-black transition-colors duration-500`}>
                 {activeForm === 'project' ? "Digital Core." : "Career Hub."}
               </span>
             </h2>
             
-            <div className="max-w-5xl mx-auto lg:mx-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-12">
+            <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-12 w-full text-center">
                  <div 
                   onClick={() => setActiveForm('project')} 
-                  className={`p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border cursor-pointer transition-all duration-500 shadow-sm hover:-translate-y-1 ${activeForm === 'project' ? 'bg-zinc-900 border-zinc-900 text-white shadow-2xl' : 'bg-white border-zinc-200/80 group hover:shadow-xl'}`}
+                  className={`flex flex-col items-center w-full p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border cursor-pointer transition-all duration-500 shadow-sm hover:-translate-y-1 ${activeForm === 'project' ? 'bg-zinc-900 border-zinc-900 text-white shadow-2xl' : 'bg-white border-zinc-200/80 group hover:shadow-xl'}`}
                  >
                    <Lightbulb className={`mb-6 w-8 h-8 md:w-10 md:h-10 ${activeForm === 'project' ? 'text-yellow-400' : 'text-zinc-900'}`} />
-                   <h4 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase tracking-tighter">Start Your Project</h4>
-                   <p className={`leading-relaxed font-light text-sm md:text-lg ${activeForm === 'project' ? 'text-zinc-400' : 'text-zinc-500'}`}>Scale your product from ideation to launch with precision engineering.</p>
+                   <h4 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase tracking-tighter text-center">Start Your Project</h4>
+                   <p className={`leading-relaxed font-light text-sm md:text-lg text-center ${activeForm === 'project' ? 'text-zinc-400' : 'text-zinc-500'}`}>Scale your product from ideation to launch with precision engineering.</p>
                  </div>
                  <div 
                   onClick={() => setActiveForm('internship')} 
-                  className={`p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border cursor-pointer transition-all duration-500 shadow-sm hover:-translate-y-1 ${activeForm === 'internship' ? 'bg-zinc-900 border-zinc-900 text-white shadow-2xl' : 'bg-white border-zinc-200/80 group hover:shadow-xl'}`}
+                  className={`flex flex-col items-center w-full p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border cursor-pointer transition-all duration-500 shadow-sm hover:-translate-y-1 ${activeForm === 'internship' ? 'bg-zinc-900 border-zinc-900 text-white shadow-2xl' : 'bg-white border-zinc-200/80 group hover:shadow-xl'}`}
                  >
                    <Users className={`mb-6 w-8 h-8 md:w-10 md:h-10 ${activeForm === 'internship' ? 'text-blue-400' : 'text-blue-500'}`} />
-                   <h4 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase tracking-tighter">Apply for Internship</h4>
-                   <p className={`leading-relaxed font-light text-sm md:text-lg ${activeForm === 'internship' ? 'text-zinc-400' : 'text-zinc-500'}`}>Join our team to work on real-world projects and build the future.</p>
+                   <h4 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase tracking-tighter text-center">Apply for Internship</h4>
+                   <p className={`leading-relaxed font-light text-sm md:text-lg text-center ${activeForm === 'internship' ? 'text-zinc-400' : 'text-zinc-500'}`}>Join our team to work on real-world projects and build the future.</p>
                  </div>
               </div>
 
-              <div className="space-y-6 md:space-y-8 animate-in fade-in duration-700 bg-white/50 backdrop-blur-sm p-6 md:p-12 rounded-[3rem] md:rounded-[4rem] border border-zinc-200/60 shadow-inner">
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="w-full space-y-6 md:space-y-8 animate-in fade-in duration-700 bg-white/50 backdrop-blur-sm p-6 md:p-12 rounded-[3rem] md:rounded-[4rem] border border-zinc-200/60 shadow-inner">
+                 <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     {activeForm === 'project' ? (
                       <>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Full Name</label>
-                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="Deepak" />
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Full Name</label>
+                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="Deepak" />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Active Email</label>
-                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="deepak@example.com" />
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Active Email</label>
+                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="deepak@example.com" />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Organization</label>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Organization</label>
                           <div className="relative">
                             <Building2 className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300" size={20} />
-                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="Company Name" />
+                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="Company Name" />
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Active Phone Number</label>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Active Phone Number</label>
                           <div className="relative">
                             <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300" size={20} />
-                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="+91 XXXXX XXXXX" />
+                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="+91 XXXXX XXXXX" />
                           </div>
                         </div>
                         <div className="md:col-span-2 space-y-2 pt-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Project Brief</label>
-                          <textarea rows="4" className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-[2rem] text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold resize-none" placeholder="Describe your vision and requirements..."></textarea>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Project Brief</label>
+                          <textarea rows="4" className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-[2rem] text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold resize-none text-left" placeholder="Describe your vision and requirements..."></textarea>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Full Name</label>
-                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="Deepak" />
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Full Name</label>
+                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="Deepak" />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Active Email</label>
-                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="deepak@example.com" />
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Active Email</label>
+                          <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="deepak@example.com" />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Target Role</label>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Target Role</label>
                           <div className="relative">
                             <UserCheck className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300 pointer-events-none z-10" size={20} />
-                            <select className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all font-bold appearance-none relative">
+                            <select className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all font-bold appearance-none relative text-left">
                               <option value="">Select Desired Role</option>
                               <option>Frontend Developer</option>
                               <option>Backend Developer</option>
@@ -729,27 +760,27 @@ export default function App() {
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Academic Institution</label>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Academic Institution</label>
                           <div className="relative">
                             <GraduationCap className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300" size={20} />
-                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="University Name" />
+                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="University Name" />
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Portfolio/Resume Link</label>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Portfolio/Resume Link</label>
                           <div className="relative">
                             <LinkIcon className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300" size={20} />
-                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold" placeholder="github.com/profile or Drive Link" />
+                            <input className="w-full bg-white border border-zinc-200 p-5 md:p-6 pl-16 rounded-2xl text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold text-left" placeholder="github.com/profile or Drive Link" />
                           </div>
                         </div>
                         <div className="md:col-span-2 space-y-2 pt-2">
-                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4">Statement of Purpose</label>
-                          <textarea rows="4" className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-[2rem] text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold resize-none" placeholder="Tell us about your skillsets, goals and why you want to join Krytil..."></textarea>
+                          <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-4 block text-left">Statement of Purpose</label>
+                          <textarea rows="4" className="w-full bg-white border border-zinc-200 p-5 md:p-6 rounded-[2rem] text-zinc-900 text-base focus:ring-4 ring-zinc-900/10 outline-none transition-all placeholder:text-zinc-300 font-bold resize-none text-left" placeholder="Tell us about your skillsets, goals and why you want to join Krytil..."></textarea>
                         </div>
                       </>
                     )}
                  </div>
-                 <button className="bg-zinc-900 text-white font-black px-10 py-5 md:px-14 md:py-6 rounded-full text-[10px] md:text-[12px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-xl active:scale-95 flex items-center group mt-4">
+                 <button className="bg-zinc-900 text-white font-black px-10 py-5 md:px-14 md:py-6 rounded-full text-[10px] md:text-[12px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center group mt-8 mx-auto w-fit">
                    <span>{activeForm === 'project' ? 'Initiate Briefing' : 'Submit Candidacy'}</span>
                    <ArrowRight size={16} className="ml-3 group-hover:translate-x-2 transition-transform" />
                  </button>
@@ -761,9 +792,9 @@ export default function App() {
         {/* CONTACT SECTION */}
         <section id="contact" ref={contactRef} className="scroll-mt-20 relative w-full py-12 lg:py-24 px-6 md:px-10 lg:px-12 border-t border-zinc-200/70 bg-zinc-50/40 overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-blue-500/5 blur-[180px] rounded-full animate-[spin_40s_linear_infinite] pointer-events-none"></div>
-          <div className="max-w-[1440px] mx-auto relative z-10">
-            <h2 className={`text-5xl md:text-8xl lg:text-[10rem] font-black text-zinc-900 uppercase tracking-tighter mb-10 md:mb-16 transition-all duration-1000 transform ${contactVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>Get In Touch</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+          <div className="w-full max-w-[1920px] 2xl:px-20 mx-auto relative z-10 flex flex-col items-center">
+            <h2 className={`text-5xl md:text-8xl lg:text-[10rem] font-black text-zinc-900 uppercase tracking-tighter mb-10 md:mb-16 transition-all duration-1000 transform text-center ${contactVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>Get In Touch</h2>
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
                <TiltContactCard href="mailto:info@krytil.com" icon={Mail} colorClass={{ bg: "bg-blue-50", text: "text-blue-500", pulse: "bg-blue-500/20" }} label="Email Us" value="info@krytil.com" delay={0.1} visible={contactVisible} />
                <TiltContactCard href="tel:+919535333301" icon={Phone} colorClass={{ bg: "bg-red-50", text: "text-red-500", pulse: "bg-red-500/20" }} label="Call Us" value="+91 95353 33301" delay={0.2} visible={contactVisible} />
                <TiltContactCard href="https://wa.me/919535333301" icon={MessageCircle} colorClass={{ bg: "bg-green-50", text: "text-green-600", pulse: "bg-green-500/20" }} label="WhatsApp" value="Connect Now" delay={0.3} visible={contactVisible} />
@@ -773,8 +804,8 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="relative py-12 md:py-16 px-6 md:px-10 lg:px-12 bg-white border-t border-zinc-200 text-center">
-        <div className="max-w-[1440px] mx-auto flex flex-col items-center">
+      <footer className="relative w-full py-12 md:py-16 px-6 md:px-10 lg:px-12 bg-white border-t border-zinc-200 text-center">
+        <div className="w-full max-w-[1920px] 2xl:px-20 mx-auto flex flex-col items-center">
           <div className="flex items-center justify-center space-x-3 mb-8">
             <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center shadow-lg transform rotate-3"><span className="text-white font-bold text-xl underline decoration-blue-500 decoration-2">K</span></div>
             <span className="text-zinc-900 font-black tracking-[0.4em] text-2xl uppercase">KRYTIL</span>
