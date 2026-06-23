@@ -41,3 +41,27 @@ Styling: Tailwind CSS (for modern, highly responsive design)
 Icons: Lucide React (for crisp, scalable vector icons)
 
 Interactive Elements: Standard HTML5 Canvas for the animated neural network and blueprint grid.
+
+🚀 Running It Locally
+
+Want to fire up the node on your local machine? Just follow these simple steps:
+
+Clone the repository:
+
+git clone https://github.com/your-username/krytil-website.git
+cd krytil-website
+
+
+Install the dependencies:
+
+npm install
+
+
+Start the development server:
+
+npm run dev
+
+
+Open http://localhost:5173 in your browser to explore the live, edge-to-edge portal!
+
+Created with care for Krytil Private Limited © 2026. All rights reserved.
