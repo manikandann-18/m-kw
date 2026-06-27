@@ -270,7 +270,10 @@ export default function CareersSection() {
                 )}
              </div>
              
-             <button type="submit" className="bg-zinc-900 text-white font-black px-10 py-5 md:px-14 md:py-6 rounded-full text-[10px] md:text-[12px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center group mt-8 mx-auto w-fit">
+             <button 
+               type="submit" 
+               className="bg-zinc-900 text-white font-black px-10 py-5 md:px-14 md:py-6 rounded-full text-[10px] md:text-[12px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center group mt-8 mx-auto w-fit"
+             >
                <span>{activeForm === 'project' ? 'Initiate Briefing' : 'Submit Candidacy'}</span>
                <ArrowRight size={16} className="ml-3 group-hover:translate-x-2 transition-transform" />
              </button>
